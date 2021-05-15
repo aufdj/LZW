@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::env::args;
 
-fn encode(mut file_in: File, mut file_out: File) {
+fn compress(mut file_in: File, mut file_out: File) {
     let mut s = String::new();
     file_in.read_to_string(&mut s).expect("Couldn't read file to string.");
     // max code value set to 55295 because values 55296 - 55551 are reserved for utf-16
@@ -58,7 +58,7 @@ fn encode(mut file_in: File, mut file_out: File) {
     }   
     println!("Finished compressing.");
 }
-fn decode(mut file_in: File, mut file_out: File) {
+fn decompress(mut file_in: File, mut file_out: File) {
     let mut s = String::new();
     file_in.read_to_string(&mut s).expect("Couldn't read file to string.");
     let mut chars = s.chars();
@@ -75,7 +75,7 @@ fn decode(mut file_in: File, mut file_out: File) {
     let mut previous_string = String::new();
 
     loop {
-        compressed_code = chars.next().expect("Finished decoding.") as u16;
+        compressed_code = chars.next().expect("Finished decompressing.") as u16;
         if !dictionary.contains_key(&compressed_code) && dictionary_code < max_code {
             //println!("Didn't recognize code: {} (compressed)", &compressed_code);
             //println!("Insert {} to dictionary with code {}", previous_string.clone().to_owned() + &previous_string[0..1], &compressed_code);
@@ -109,8 +109,8 @@ fn main() {
     let file_in = File::open(&args[2]).expect("Couldn't open input file.");
     let file_out = File::create(&args[3]).expect("Couldn't open output file.");
     match (&args[1]).as_str() {
-        "c" => encode(file_in, file_out),
-        "d" => decode(file_in, file_out),
+        "c" => compress(file_in, file_out),
+        "d" => decompress(file_in, file_out),
         _ => println!("Enter 'c' to compress and 'd' to decompress.")
     }   
 }
