@@ -28,11 +28,11 @@ fn compress(file_in: File, file_out: File, file_size: u64) {
 
     current_string.push_str(&from_utf8(&buf_in.buffer()).unwrap()[0..1]); 
 
-    'outer: loop {
+    loop {
         while dictionary.contains_key(&current_string) {
             current_string.push_str(&from_utf8(&buf_in.buffer()).unwrap()[buf_pos..buf_pos+1]); 
             file_pos+=1;
-            if file_pos >= file_size { break 'outer; }     
+            if file_pos >= file_size { break; }     
             buf_pos+=1;
             if buf_pos >= buf_in.capacity() {
                 buf_in.consume(buf_in.capacity());
@@ -60,6 +60,7 @@ fn compress(file_in: File, file_out: File, file_size: u64) {
                 dictionary.insert((i as u8 as char).to_string(), i);
             }
         }
+        if file_pos >= file_size { break; } 
     }
     if !current_string.is_empty() {
         buf_out.write(&(dictionary.get(&current_string).unwrap()).to_le_bytes()).unwrap();
