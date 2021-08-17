@@ -1,5 +1,5 @@
 # LZWv1
-A simple LZW Compressor using fixed-width 16 bit codes.<br>
+A simple LZW Encoder using fixed-width 16 bit codes.<br>
 The program does not use a buffer, it just reads in the entire input file at once, so compressing large files is not recommended.<br>
 Uses '#' as EOF character.<br>
 
