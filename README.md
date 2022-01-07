@@ -28,4 +28,4 @@ lzw2.exe c input output<br>
 To Decompress:<br>
 lzw2.exe d input output<br>
 
-[Benchmarks](https://sheet.zoho.com/sheet/open/1pcxk88776ef2c512445c948bee21dcbbdba5?sheet=Sheet1&range=A1)
+[Benchmarks](https://sheet.zohopublic.com/sheet/published/i5jwtddd8d29b4ef94fce93450ee6ab9178e5)
